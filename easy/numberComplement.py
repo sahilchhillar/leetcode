@@ -1,4 +1,4 @@
-def numberComplement(n):
+def numberComplement(c):
     n = 0
     i = 0
     while c > 0:
