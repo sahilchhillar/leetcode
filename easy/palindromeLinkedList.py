@@ -4,26 +4,41 @@ class ListNode:
         self.next = next
 
 class Solution:
-    def reverse(self, head: ListNode):
-        prev, curr, nextPtr = None, head, None
-
-        while curr:
-            nextPtr = curr.next
-            curr.next = prev
-            prev = curr
-            curr = nextPtr
-        
-        return prev
-
     def isPalindrome(self, head: ListNode) -> bool:
-        headRev = self.reverse(head)
+        # Solution 1
+        # if head is None:
+        #     return True
+        
+        # curr = head
+        # stack = []
+        
+        # while curr:
+        #     stack.append(curr)
+        #     curr = curr.next
+        
+        # while head:
+        #     ptr = stack.pop()
+        #     if head.val != ptr.val:
+        #         return False
+        #     head = head.next
+        # return True
 
-        curr, currRev = head, headRev
+        # Solution 2
+        slow, fast, prev = head, head, None
 
-        while curr:
-            if curr.val != currRev.val:
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
+        
+        prev, slow, prev.next = slow, slow.next, None
+
+        while slow:
+            slow.next, prev, slow = prev, slow, slow.next
+        
+        fast, slow = head, prev
+
+        while slow:
+            if fast.val != slow.val:
                 return False
-            curr = curr.next
-            currRev = currRev.next
+            fast, slow = fast.next, slow.next
         
         return True
